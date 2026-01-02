@@ -1,0 +1,32 @@
+{
+  "name": "mal-mcp",
+  "version": "1.0.0",
+  "description": "A Model Context Protocol (MCP) server for MyAnimeList, enabling AI chats and applications to interact with MyAnimeList data.",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "bin": {
+    "mal": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon -r dotenv/config ./src/server.ts",
+    "start": "node dist/server.js"
+  },
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.21.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
