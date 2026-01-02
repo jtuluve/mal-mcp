@@ -84,7 +84,6 @@ server.registerTool(
       data: fullResponse.data.map((item: any) => item.node),
       paging: fullResponse.paging,
     };
-    console.log(structuredContent);
 
     return {
       structuredContent,
@@ -221,7 +220,7 @@ server.registerTool(
   async ({ anime_id, ...statusUpdate }) => {
     if (!token) {
       throw new Error(
-        "User not authenticated. Please go to http://localhost:5839/auth/mal to authenticate."
+        `User not authenticated. Please go to http://localhost:${PORT}/auth/mal to authenticate.`
       );
     }
 
@@ -248,16 +247,15 @@ server.registerTool(
       body: params.toString(),
     });
 
+    let structuredContent = await res.json();
+
     if (res.status === 404) {
-      console.error(await res.json());
+      console.error(structuredContent);
       throw new Error("Anime not found in your list.");
     } else if (!res.ok) {
-      console.error(await res.json());
+      console.error(structuredContent);
       throw new Error("Failed to update anime list status.");
     }
-
-    let structuredContent = await res.json();
-    console.log(structuredContent);
 
     return {
       structuredContent,
@@ -401,7 +399,6 @@ server.registerTool(
       fields: fields.join(","),
     });
     const res = await fetchMAL(`/manga/${manga_id}?` + params.toString());
-    console.debug(res);
 
     return {
       structuredContent: res,
@@ -634,8 +631,6 @@ app.get("/oauth/callback", async (req, res) => {
     redirect_uri: "http://localhost:5839/oauth/callback",
   });
 
-  console.log("Generating token...");
-
   const tokenResponse = await fetch("https://myanimelist.net/v1/oauth2/token", {
     method: "POST",
     headers: {
@@ -646,7 +641,6 @@ app.get("/oauth/callback", async (req, res) => {
 
   if (!tokenResponse.ok) return res.status(500).json({ success: false });
   token = await tokenResponse.json();
-  console.log(token);
   res.json({ success: true });
 });
 
