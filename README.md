@@ -11,6 +11,7 @@ A Model Context Protocol (MCP) server for MyAnimeList, enabling AI chats and app
 *   Node.js (v18 or higher recommended)
 *   npm or yarn
 *   Git
+*   MAL Api client ID and secret. You can get it from [https://myanimelist.net/apiconfig](https://myanimelist.net/apiconfig)
 
 **Setup:**
 
